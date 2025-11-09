@@ -1,0 +1,20 @@
+# .gitignore
+
+# macOS
+.DS_Store
+
+# Xcode
+## Build Artifacts
+build/
+Build/
+DerivedData/
+
+## User-Specific Files
+*.xcodeproj/xcuserdata/
+*.xcworkspace/xcuserdata/
+*.xcuserdatad/
+*.xcuserstate
+
+## Swift Package Manager
+.build/
+Packages/
