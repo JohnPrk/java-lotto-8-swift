@@ -1,24 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13122.16" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_3" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13104.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="lotto_swift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" xcode11CocoaTouchSystemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="구입 금액을 입력해주세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uOS-XC-RcY">
+                                <rect key="frame" x="56" y="205" width="176" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="176" id="1Zc-T1-nhR"/>
+                                    <constraint firstAttribute="width" secondItem="uOS-XC-RcY" secondAttribute="height" multiplier="176:21" id="PtI-HS-3U5"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="로또 게임 - swift" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57S-RP-T3s">
+                                <rect key="frame" x="138" y="154" width="116" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="116" id="Xoa-Ez-VHb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gcG-g3-Pb8">
+                                <rect key="frame" x="56" y="245.99999999999997" width="113" height="39.666666666666657"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="gcG-g3-Pb8" secondAttribute="height" multiplier="97:34" id="8Xs-n4-RaH"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qeX-sL-7i6">
+                                <rect key="frame" x="184" y="246" width="54" height="34"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="입력"/>
+                                <connections>
+                                    <action selector="didTapConfirmButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="71n-xG-aWx"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x2a-AP-je2">
+                                <rect key="frame" x="56" y="335.66666666666669" width="41.333333333333343" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="79u-23-pCR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gcG-g3-Pb8" secondAttribute="trailing" constant="233" id="0u1-5Q-49a"/>
+                            <constraint firstItem="x2a-AP-je2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="56" id="5Hw-8h-vgi"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="uOS-XC-RcY" secondAttribute="trailing" constant="170" id="5R7-Kx-mca"/>
+                            <constraint firstItem="uOS-XC-RcY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="56" id="Foj-D6-Vrg"/>
+                            <constraint firstItem="qeX-sL-7i6" firstAttribute="leading" secondItem="gcG-g3-Pb8" secondAttribute="trailing" constant="15" id="N2F-No-jlC"/>
+                            <constraint firstItem="gcG-g3-Pb8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="56" id="OaL-xr-UiO"/>
+                            <constraint firstItem="uOS-XC-RcY" firstAttribute="top" secondItem="57S-RP-T3s" secondAttribute="bottom" constant="30" id="PKm-f7-EU1"/>
+                            <constraint firstItem="57S-RP-T3s" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="138" id="Sei-fR-Apt"/>
+                            <constraint firstItem="57S-RP-T3s" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="TFj-F0-oPu"/>
+                            <constraint firstItem="gcG-g3-Pb8" firstAttribute="top" secondItem="uOS-XC-RcY" secondAttribute="bottom" constant="20" id="eqa-i1-5do"/>
+                            <constraint firstItem="qeX-sL-7i6" firstAttribute="top" secondItem="uOS-XC-RcY" secondAttribute="bottom" constant="20" id="gbd-t9-NN4"/>
+                            <constraint firstItem="x2a-AP-je2" firstAttribute="top" secondItem="gcG-g3-Pb8" secondAttribute="bottom" constant="50" id="iZ4-NE-FN2"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="57S-RP-T3s" secondAttribute="trailing" constant="148" id="qhq-zD-km4"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="amountTextField" destination="gcG-g3-Pb8" id="MOf-Bp-dj7"/>
+                        <outlet property="confirmButton" destination="qeX-sL-7i6" id="haQ-32-bcb"/>
+                        <outlet property="purchaseAmountMessageLabel" destination="uOS-XC-RcY" id="24Z-an-hFd"/>
+                        <outlet property="resultLabel" destination="x2a-AP-je2" id="RCE-Bv-CWq"/>
+                        <outlet property="titleLabel" destination="57S-RP-T3s" id="YHV-Cr-Vnc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="137.31343283582089" y="130.43478260869566"/>
         </scene>
     </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
