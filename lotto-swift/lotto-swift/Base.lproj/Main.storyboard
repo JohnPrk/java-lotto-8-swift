@@ -16,75 +16,87 @@
                         <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="구입 금액을 입력해주세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uOS-XC-RcY">
-                                <rect key="frame" x="56" y="205" width="176" height="21"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iAR-cy-JN7">
+                                <rect key="frame" x="0.0" y="167" width="402" height="573"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="구입 금액을 입력해주세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XGr-Y0-F5m">
+                                        <rect key="frame" x="50.000000000000014" y="50.333333333333343" width="175.33333333333337" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YKd-fw-6pd">
+                                        <rect key="frame" x="159" y="91" width="54" height="34"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="입력"/>
+                                        <connections>
+                                            <action selector="didTapConfirmButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ocv-71-lur"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="로또 게임 - swift" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bVb-Ph-E2Q">
+                                        <rect key="frame" x="143" y="0.0" width="116" height="20.333333333333332"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hv1-UW-dl7">
+                                        <rect key="frame" x="50" y="91.333333333333314" width="99" height="34.666666666666657"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="Hv1-UW-dl7" secondAttribute="height" multiplier="97:34" id="ynJ-NV-Fif"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bqZ-6g-tIV" userLabel="ResultLabel">
+                                        <rect key="frame" x="50" y="176" width="0.0" height="0.0"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zpS-jc-m1b" userLabel="LottoLabel">
+                                        <rect key="frame" x="50" y="186" width="41.333333333333343" height="20.333333333333343"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="176" id="1Zc-T1-nhR"/>
-                                    <constraint firstAttribute="width" secondItem="uOS-XC-RcY" secondAttribute="height" multiplier="176:21" id="PtI-HS-3U5"/>
+                                    <constraint firstItem="YKd-fw-6pd" firstAttribute="top" secondItem="XGr-Y0-F5m" secondAttribute="bottom" constant="19.666666666666657" id="2Np-kh-hkr" userLabel="Confirm Button.top = Purchase Amount Message Label.bottom + 20"/>
+                                    <constraint firstItem="Hv1-UW-dl7" firstAttribute="top" secondItem="XGr-Y0-F5m" secondAttribute="bottom" constant="20" id="5IQ-6X-1nf"/>
+                                    <constraint firstItem="bqZ-6g-tIV" firstAttribute="top" secondItem="Hv1-UW-dl7" secondAttribute="bottom" constant="50" id="GNN-to-pBX" userLabel="ResultLabel.top = Amount Text Field.bottom + 40"/>
+                                    <constraint firstItem="gMZ-Ja-FTz" firstAttribute="trailing" secondItem="bVb-Ph-E2Q" secondAttribute="trailing" constant="143" id="Noq-ZJ-4Km"/>
+                                    <constraint firstItem="bVb-Ph-E2Q" firstAttribute="leading" secondItem="gMZ-Ja-FTz" secondAttribute="leading" constant="143" id="QhJ-fQ-Xfw"/>
+                                    <constraint firstItem="Hv1-UW-dl7" firstAttribute="leading" secondItem="gMZ-Ja-FTz" secondAttribute="leading" constant="50" id="SQZ-0p-wdB"/>
+                                    <constraint firstItem="bVb-Ph-E2Q" firstAttribute="top" secondItem="oEu-x7-6yw" secondAttribute="top" id="W8l-qc-amp" userLabel="Title Label.top = Content Layout Guide.top"/>
+                                    <constraint firstItem="bqZ-6g-tIV" firstAttribute="leading" secondItem="gMZ-Ja-FTz" secondAttribute="leading" constant="50" id="WJ0-e3-D7j"/>
+                                    <constraint firstItem="zpS-jc-m1b" firstAttribute="top" secondItem="bqZ-6g-tIV" secondAttribute="bottom" constant="10" id="a4I-nI-lM7" userLabel="LottoLabel.top = ResultLabel.bottom + 10"/>
+                                    <constraint firstItem="YKd-fw-6pd" firstAttribute="leading" secondItem="Hv1-UW-dl7" secondAttribute="trailing" constant="10" id="dAc-hC-W2a"/>
+                                    <constraint firstItem="zpS-jc-m1b" firstAttribute="bottom" secondItem="oEu-x7-6yw" secondAttribute="bottom" constant="206.33333333333331" id="f3O-IJ-L3h"/>
+                                    <constraint firstItem="XGr-Y0-F5m" firstAttribute="leading" secondItem="gMZ-Ja-FTz" secondAttribute="leading" constant="50" id="jnu-4Y-3NM"/>
+                                    <constraint firstItem="XGr-Y0-F5m" firstAttribute="top" secondItem="bVb-Ph-E2Q" secondAttribute="bottom" constant="30" id="lkK-iR-zHd"/>
+                                    <constraint firstItem="zpS-jc-m1b" firstAttribute="leading" secondItem="gMZ-Ja-FTz" secondAttribute="leading" constant="50" id="mxB-o2-LfP"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="로또 게임 - swift" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57S-RP-T3s">
-                                <rect key="frame" x="138" y="154" width="116" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="116" id="Xoa-Ez-VHb"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gcG-g3-Pb8">
-                                <rect key="frame" x="56" y="245.99999999999997" width="113" height="39.666666666666657"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="gcG-g3-Pb8" secondAttribute="height" multiplier="97:34" id="8Xs-n4-RaH"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qeX-sL-7i6">
-                                <rect key="frame" x="184" y="246" width="54" height="34"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="입력"/>
-                                <connections>
-                                    <action selector="didTapConfirmButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="71n-xG-aWx"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x2a-AP-je2">
-                                <rect key="frame" x="56" y="335.66666666666669" width="41.333333333333343" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="79u-23-pCR"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                                <viewLayoutGuide key="contentLayoutGuide" id="oEu-x7-6yw"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="gMZ-Ja-FTz"/>
+                            </scrollView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gcG-g3-Pb8" secondAttribute="trailing" constant="233" id="0u1-5Q-49a"/>
-                            <constraint firstItem="x2a-AP-je2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="56" id="5Hw-8h-vgi"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="uOS-XC-RcY" secondAttribute="trailing" constant="170" id="5R7-Kx-mca"/>
-                            <constraint firstItem="uOS-XC-RcY" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="56" id="Foj-D6-Vrg"/>
-                            <constraint firstItem="qeX-sL-7i6" firstAttribute="leading" secondItem="gcG-g3-Pb8" secondAttribute="trailing" constant="15" id="N2F-No-jlC"/>
-                            <constraint firstItem="gcG-g3-Pb8" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="56" id="OaL-xr-UiO"/>
-                            <constraint firstItem="uOS-XC-RcY" firstAttribute="top" secondItem="57S-RP-T3s" secondAttribute="bottom" constant="30" id="PKm-f7-EU1"/>
-                            <constraint firstItem="57S-RP-T3s" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="138" id="Sei-fR-Apt"/>
-                            <constraint firstItem="57S-RP-T3s" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="TFj-F0-oPu"/>
-                            <constraint firstItem="gcG-g3-Pb8" firstAttribute="top" secondItem="uOS-XC-RcY" secondAttribute="bottom" constant="20" id="eqa-i1-5do"/>
-                            <constraint firstItem="qeX-sL-7i6" firstAttribute="top" secondItem="uOS-XC-RcY" secondAttribute="bottom" constant="20" id="gbd-t9-NN4"/>
-                            <constraint firstItem="x2a-AP-je2" firstAttribute="top" secondItem="gcG-g3-Pb8" secondAttribute="bottom" constant="50" id="iZ4-NE-FN2"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="57S-RP-T3s" secondAttribute="trailing" constant="148" id="qhq-zD-km4"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="iAR-cy-JN7" secondAttribute="bottom" constant="66" id="2ec-8l-rDQ" userLabel="Safe Area.bottom = Scroll View.bottom"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="iAR-cy-JN7" secondAttribute="trailing" id="Xp1-Xz-e21"/>
+                            <constraint firstItem="iAR-cy-JN7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="m06-jR-Ncz"/>
+                            <constraint firstItem="iAR-cy-JN7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="43" id="oYx-C3-jBO" userLabel="Scroll View.top = Safe Area.top"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="amountTextField" destination="gcG-g3-Pb8" id="MOf-Bp-dj7"/>
-                        <outlet property="confirmButton" destination="qeX-sL-7i6" id="haQ-32-bcb"/>
-                        <outlet property="purchaseAmountMessageLabel" destination="uOS-XC-RcY" id="24Z-an-hFd"/>
-                        <outlet property="resultLabel" destination="x2a-AP-je2" id="RCE-Bv-CWq"/>
-                        <outlet property="titleLabel" destination="57S-RP-T3s" id="YHV-Cr-Vnc"/>
+                        <outlet property="amountTextField" destination="Hv1-UW-dl7" id="t6D-i5-IiU"/>
+                        <outlet property="confirmButton" destination="YKd-fw-6pd" id="vh1-ae-m3V"/>
+                        <outlet property="lottoLabel" destination="zpS-jc-m1b" id="4Aa-M0-EVG"/>
+                        <outlet property="purchaseAmountMessageLabel" destination="XGr-Y0-F5m" id="LcY-Yz-Y9C"/>
+                        <outlet property="resultLabel" destination="bqZ-6g-tIV" id="TTH-Ns-LKG"/>
+                        <outlet property="scrollView" destination="iAR-cy-JN7" id="ZWM-Lo-OsJ"/>
+                        <outlet property="titleLabel" destination="bVb-Ph-E2Q" id="j4K-Km-s0Q"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
