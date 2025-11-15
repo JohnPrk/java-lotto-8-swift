@@ -17,44 +17,103 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iAR-cy-JN7">
-                                <rect key="frame" x="0.0" y="167" width="402" height="573"/>
+                                <rect key="frame" x="0.0" y="124" width="402" height="682"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="구입 금액을 입력해주세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XGr-Y0-F5m">
-                                        <rect key="frame" x="50.000000000000014" y="50.333333333333343" width="175.33333333333337" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="구입 금액을 입력해주세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XGr-Y0-F5m">
+                                        <rect key="frame" x="50" y="50" width="189" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YKd-fw-6pd">
-                                        <rect key="frame" x="159" y="91" width="54" height="34"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YKd-fw-6pd" userLabel="Purchase Amount Button">
+                                        <rect key="frame" x="157" y="90.666666666666657" width="54" height="34"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="입력"/>
                                         <connections>
-                                            <action selector="didTapConfirmButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ocv-71-lur"/>
+                                            <action selector="didTapConfirmButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3dM-4v-exm"/>
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="로또 게임 - swift" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bVb-Ph-E2Q">
-                                        <rect key="frame" x="143" y="0.0" width="116" height="20.333333333333332"/>
+                                        <rect key="frame" x="143" y="0.0" width="116" height="20"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Hv1-UW-dl7">
-                                        <rect key="frame" x="50" y="91.333333333333314" width="99" height="34.666666666666657"/>
+                                        <rect key="frame" x="50" y="91" width="97" height="34"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="Hv1-UW-dl7" secondAttribute="height" multiplier="97:34" id="ynJ-NV-Fif"/>
+                                            <constraint firstAttribute="width" constant="97" id="JmZ-PA-CyZ"/>
+                                            <constraint firstAttribute="height" constant="34" id="R6y-nh-gjQ"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
                                     </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bqZ-6g-tIV" userLabel="ResultLabel">
-                                        <rect key="frame" x="50" y="176" width="0.0" height="0.0"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="{#s}개를 구매했습니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bqZ-6g-tIV" userLabel="Result Label">
+                                        <rect key="frame" x="50" y="175" width="158" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zpS-jc-m1b" userLabel="LottoLabel">
-                                        <rect key="frame" x="50" y="186" width="41.333333333333343" height="20.333333333333343"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[1, 2, 3, 4, 5, 6]" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zpS-jc-m1b" userLabel="Lotto Label">
+                                        <rect key="frame" x="49.999999999999993" y="206" width="113.33333333333331" height="20.333333333333343"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="당첨 번호를 입력해 주세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P1w-o3-XMw" userLabel="WinningNumbersMessageLabel">
+                                        <rect key="frame" x="50" y="246.33333333333331" width="180" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="HJ0-V1-Lb3">
+                                        <rect key="frame" x="50" y="287.33333333333331" width="97" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34" id="Zw0-49-xrc"/>
+                                            <constraint firstAttribute="width" constant="97" id="uUR-zN-mkz"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lGN-nW-p2M" userLabel="Winning Numbers Button">
+                                        <rect key="frame" x="154" y="286" width="54" height="35"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="입력"/>
+                                        <connections>
+                                            <action selector="didTapWinningNumbersButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fAz-xX-Wlg"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[7, 8, 9, 10, 11, 12]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lp5-d2-U1X" userLabel="Winning Numbers Output">
+                                        <rect key="frame" x="50" y="331.33333333333331" width="133" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="보너스 번호를 입력해 주세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fy7-Kn-oQD" userLabel="Bonus Number Message Label">
+                                        <rect key="frame" x="50" y="392.33333333333337" width="195" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GGB-vj-jJL" userLabel="Bonus Number Field">
+                                        <rect key="frame" x="50" y="433.33333333333337" width="97" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34" id="0zB-xn-pPC"/>
+                                            <constraint firstAttribute="width" constant="97" id="7Sz-lN-gFY"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4jd-LR-aaZ" userLabel="Bonus Number Button">
+                                        <rect key="frame" x="157" y="433.33333333333337" width="54" height="35"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="입력"/>
+                                        <connections>
+                                            <action selector="didTapBonusNumberButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Oom-DL-T4j"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gIg-q8-zvO">
+                                        <rect key="frame" x="50" y="477.33333333333337" width="10" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -62,19 +121,35 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="YKd-fw-6pd" firstAttribute="top" secondItem="XGr-Y0-F5m" secondAttribute="bottom" constant="19.666666666666657" id="2Np-kh-hkr" userLabel="Confirm Button.top = Purchase Amount Message Label.bottom + 20"/>
+                                    <constraint firstItem="Lp5-d2-U1X" firstAttribute="leading" secondItem="gMZ-Ja-FTz" secondAttribute="leading" constant="50" id="2kC-7M-eRX"/>
                                     <constraint firstItem="Hv1-UW-dl7" firstAttribute="top" secondItem="XGr-Y0-F5m" secondAttribute="bottom" constant="20" id="5IQ-6X-1nf"/>
+                                    <constraint firstItem="fy7-Kn-oQD" firstAttribute="top" secondItem="Lp5-d2-U1X" secondAttribute="bottom" constant="40" id="8JK-6R-Hnc" userLabel="Bonus Number Message Label.top = Winning Numbers Output.bottom + 40"/>
+                                    <constraint firstItem="P1w-o3-XMw" firstAttribute="leading" secondItem="gMZ-Ja-FTz" secondAttribute="leading" constant="50" id="A1n-wc-hj8"/>
                                     <constraint firstItem="bqZ-6g-tIV" firstAttribute="top" secondItem="Hv1-UW-dl7" secondAttribute="bottom" constant="50" id="GNN-to-pBX" userLabel="ResultLabel.top = Amount Text Field.bottom + 40"/>
+                                    <constraint firstItem="fy7-Kn-oQD" firstAttribute="leading" secondItem="gMZ-Ja-FTz" secondAttribute="leading" constant="50" id="MQE-Et-Q1X"/>
+                                    <constraint firstItem="4jd-LR-aaZ" firstAttribute="top" secondItem="fy7-Kn-oQD" secondAttribute="bottom" constant="20" id="Nbb-rr-d5a" userLabel="Bonus Number Button.top = Bonus Number Message Label.bottom + 20"/>
+                                    <constraint firstItem="HJ0-V1-Lb3" firstAttribute="leading" secondItem="gMZ-Ja-FTz" secondAttribute="leading" constant="50" id="NkK-Ut-2j3"/>
                                     <constraint firstItem="gMZ-Ja-FTz" firstAttribute="trailing" secondItem="bVb-Ph-E2Q" secondAttribute="trailing" constant="143" id="Noq-ZJ-4Km"/>
                                     <constraint firstItem="bVb-Ph-E2Q" firstAttribute="leading" secondItem="gMZ-Ja-FTz" secondAttribute="leading" constant="143" id="QhJ-fQ-Xfw"/>
                                     <constraint firstItem="Hv1-UW-dl7" firstAttribute="leading" secondItem="gMZ-Ja-FTz" secondAttribute="leading" constant="50" id="SQZ-0p-wdB"/>
+                                    <constraint firstItem="gIg-q8-zvO" firstAttribute="leading" secondItem="gMZ-Ja-FTz" secondAttribute="leading" constant="50" id="UtR-Bj-wyV"/>
                                     <constraint firstItem="bVb-Ph-E2Q" firstAttribute="top" secondItem="oEu-x7-6yw" secondAttribute="top" id="W8l-qc-amp" userLabel="Title Label.top = Content Layout Guide.top"/>
                                     <constraint firstItem="bqZ-6g-tIV" firstAttribute="leading" secondItem="gMZ-Ja-FTz" secondAttribute="leading" constant="50" id="WJ0-e3-D7j"/>
+                                    <constraint firstItem="4jd-LR-aaZ" firstAttribute="leading" secondItem="GGB-vj-jJL" secondAttribute="trailing" constant="10" id="Ygn-aR-aVH"/>
                                     <constraint firstItem="zpS-jc-m1b" firstAttribute="top" secondItem="bqZ-6g-tIV" secondAttribute="bottom" constant="10" id="a4I-nI-lM7" userLabel="LottoLabel.top = ResultLabel.bottom + 10"/>
+                                    <constraint firstItem="HJ0-V1-Lb3" firstAttribute="top" secondItem="P1w-o3-XMw" secondAttribute="bottom" constant="20" id="b5o-tV-smv" userLabel="Round Style Text Field.top = WinningNumbersMessageLabel.bottom + 20"/>
                                     <constraint firstItem="YKd-fw-6pd" firstAttribute="leading" secondItem="Hv1-UW-dl7" secondAttribute="trailing" constant="10" id="dAc-hC-W2a"/>
-                                    <constraint firstItem="zpS-jc-m1b" firstAttribute="bottom" secondItem="oEu-x7-6yw" secondAttribute="bottom" constant="206.33333333333331" id="f3O-IJ-L3h"/>
+                                    <constraint firstItem="P1w-o3-XMw" firstAttribute="top" secondItem="zpS-jc-m1b" secondAttribute="bottom" constant="20" id="ect-iP-TSB" userLabel="WinningNumbersMessageLabel.top = LottoLabel.bottom + 16"/>
+                                    <constraint firstItem="lGN-nW-p2M" firstAttribute="top" secondItem="P1w-o3-XMw" secondAttribute="bottom" constant="20" id="h4R-FR-95F" userLabel="Winning Numbers Button.top = WinningNumbersMessageLabel.bottom + 20"/>
+                                    <constraint firstItem="GGB-vj-jJL" firstAttribute="leading" secondItem="gMZ-Ja-FTz" secondAttribute="leading" constant="50" id="hKB-8V-YNe"/>
                                     <constraint firstItem="XGr-Y0-F5m" firstAttribute="leading" secondItem="gMZ-Ja-FTz" secondAttribute="leading" constant="50" id="jnu-4Y-3NM"/>
                                     <constraint firstItem="XGr-Y0-F5m" firstAttribute="top" secondItem="bVb-Ph-E2Q" secondAttribute="bottom" constant="30" id="lkK-iR-zHd"/>
                                     <constraint firstItem="zpS-jc-m1b" firstAttribute="leading" secondItem="gMZ-Ja-FTz" secondAttribute="leading" constant="50" id="mxB-o2-LfP"/>
+                                    <constraint firstItem="gIg-q8-zvO" firstAttribute="top" secondItem="GGB-vj-jJL" secondAttribute="bottom" constant="10" id="nea-aK-cpY"/>
+                                    <constraint firstItem="Lp5-d2-U1X" firstAttribute="top" secondItem="HJ0-V1-Lb3" secondAttribute="bottom" constant="10" id="rlw-qb-M6W" userLabel="Label.top = Winning Numbers Field.bottom + 10"/>
+                                    <constraint firstItem="GGB-vj-jJL" firstAttribute="top" secondItem="fy7-Kn-oQD" secondAttribute="bottom" constant="20" id="s0Y-MG-RJc" userLabel="Round Style Text Field.top = Bonus Number Message Label.bottom + 20"/>
+                                    <constraint firstItem="lGN-nW-p2M" firstAttribute="leading" secondItem="HJ0-V1-Lb3" secondAttribute="trailing" constant="10" id="sH2-qm-eRC"/>
+                                    <constraint firstItem="oEu-x7-6yw" firstAttribute="bottom" secondItem="gIg-q8-zvO" secondAttribute="bottom" constant="16" id="sUJ-uA-DA2"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="oEu-x7-6yw"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="gMZ-Ja-FTz"/>
@@ -83,20 +158,28 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="iAR-cy-JN7" secondAttribute="bottom" constant="66" id="2ec-8l-rDQ" userLabel="Safe Area.bottom = Scroll View.bottom"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="iAR-cy-JN7" secondAttribute="bottom" id="2ec-8l-rDQ" userLabel="Safe Area.bottom = Scroll View.bottom"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="iAR-cy-JN7" secondAttribute="trailing" id="Xp1-Xz-e21"/>
                             <constraint firstItem="iAR-cy-JN7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="m06-jR-Ncz"/>
-                            <constraint firstItem="iAR-cy-JN7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="43" id="oYx-C3-jBO" userLabel="Scroll View.top = Safe Area.top"/>
+                            <constraint firstItem="iAR-cy-JN7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="oYx-C3-jBO" userLabel="Scroll View.top = Safe Area.top"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="amountTextField" destination="Hv1-UW-dl7" id="t6D-i5-IiU"/>
-                        <outlet property="confirmButton" destination="YKd-fw-6pd" id="vh1-ae-m3V"/>
+                        <outlet property="bonusNumberButton" destination="4jd-LR-aaZ" id="ppG-Ah-sAc"/>
+                        <outlet property="bonusNumberField" destination="GGB-vj-jJL" id="48x-sD-zrA"/>
+                        <outlet property="bonusNumberMessageLabel" destination="fy7-Kn-oQD" id="CcT-Ia-xkU"/>
+                        <outlet property="bonusNumberOutput" destination="gIg-q8-zvO" id="dzN-c0-gca"/>
                         <outlet property="lottoLabel" destination="zpS-jc-m1b" id="4Aa-M0-EVG"/>
+                        <outlet property="purchaseAmountButton" destination="YKd-fw-6pd" id="GZC-mk-6aj"/>
                         <outlet property="purchaseAmountMessageLabel" destination="XGr-Y0-F5m" id="LcY-Yz-Y9C"/>
                         <outlet property="resultLabel" destination="bqZ-6g-tIV" id="TTH-Ns-LKG"/>
                         <outlet property="scrollView" destination="iAR-cy-JN7" id="ZWM-Lo-OsJ"/>
                         <outlet property="titleLabel" destination="bVb-Ph-E2Q" id="j4K-Km-s0Q"/>
+                        <outlet property="winningNumbersButton" destination="lGN-nW-p2M" id="h3U-gg-Xvv"/>
+                        <outlet property="winningNumbersField" destination="HJ0-V1-Lb3" id="Ltf-wi-H7G"/>
+                        <outlet property="winningNumbersMessageLabel" destination="P1w-o3-XMw" id="OUs-KW-deG"/>
+                        <outlet property="winningNumbersOutput" destination="Lp5-d2-U1X" id="Qy7-sJ-JlX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
