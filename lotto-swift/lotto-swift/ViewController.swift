@@ -20,15 +20,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var bonusNumberField: UITextField!
     @IBOutlet weak var bonusNumberButton: UIButton!
     @IBOutlet weak var bonusNumberOutput: UILabel!
+    @IBOutlet weak var resultOutput: UILabel!
 
     private let lottoGenerator: LottoGenerator = RandomLottoGenerator()
     private let stepDelay: TimeInterval = 0.6
     private var lottos: [Lotto] = []
     private var pendingWinningLotto: Lotto?
     private var winningLotto: WinningLotto?
+    private var purchaseAmount: Int = 0
 
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         resultLabel.text = ""
@@ -42,6 +42,7 @@ class ViewController: UIViewController {
         bonusNumberField.isHidden = true
         bonusNumberButton.isHidden = true
         bonusNumberOutput.text = ""
+        resultOutput.text = ""
         amountTextField.becomeFirstResponder()
     }
 
@@ -55,6 +56,7 @@ class ViewController: UIViewController {
     
     @IBAction func didTapBonusNumberButton(_ sender: UIButton) {
         handleBonusNumber()
+        showResults()
     }
     
     private func handlePurchaseAmount() {
@@ -62,7 +64,7 @@ class ViewController: UIViewController {
             let amount = try InputValidator.parsePurchaseAmount(amountTextField.text)
             let money = try Money(amount: amount)
             let lottoCount = money.lottoCount
-            purchaseAmountButton.isEnabled = false
+            self.purchaseAmount = amount
             purchaseAmountButton.alpha = 0.5
             amountTextField.isEnabled = false
             view.endEditing(true)
@@ -88,6 +90,7 @@ class ViewController: UIViewController {
                     }
                 }
             }
+            purchaseAmountButton.isEnabled = false
        } catch let e as InputParseError {
             showAlert(message: e.localizedDescription)
             resetPurchaseAmountInput()
@@ -138,7 +141,7 @@ class ViewController: UIViewController {
             }
             let n = try InputValidator.parseBonusNumber(bonusNumberField.text)
             let bonus = try BonusNumber(n, notIn: winningLotto)
-            self.winningLotto = WinningLotto(lotto: winningLotto, bonus: bonus)
+            self.winningLotto = try WinningLotto(lotto: winningLotto, bonusNumber: bonus)
             DispatchQueue.main.asyncAfter(deadline: .now() + self.stepDelay) {
                 self.bonusNumberOutput.text = "\(bonus.value)"
                 self.bonusNumberField.isEnabled = false
@@ -162,6 +165,41 @@ class ViewController: UIViewController {
             resetBonusNumber()
         }
     }
+    
+    private func showResults() {
+        do {
+            guard let winning = winningLotto else {
+                showAlert(message: "당첨 번호와 보너스 번호가 존재하지 않습니다.")
+                return
+            }
+            let results = LottoResults(lottos: self.lottos, winningNumbers: winning)
+            let fifth  = results.count(of: .fifth)
+            let fourth = results.count(of: .fourth)
+            let third  = results.count(of: .third)
+            let second = results.count(of: .second)
+            let first  = results.count(of: .first)
+            let lines: [String] = [
+                "3개 일치 (5,000원) - \(fifth)개",
+                "4개 일치 (50,000원) - \(fourth)개",
+                "5개 일치 (1,500,000원) - \(third)개",
+                "5개 일치, 보너스 볼 일치 (30,000,000원) - \(second)개",
+                "6개 일치 (2,000,000,000원) - \(first)개"
+            ]
+            let summaryText = lines.joined(separator: "\n")
+            let yieldText = String(format: "%.1f", results.calculateYield(purchaseAmount: self.purchaseAmount))
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + self.stepDelay) {
+                self.resultOutput.text = """
+                당첨 통계
+                ---
+                \(summaryText)
+                총 수익률은 \(yieldText)% 입니다.
+                """
+                self.scrollToBottomIfNeeded()
+            }
+        } 
+    }
+
 
     private func resetPurchaseAmountInput() {
         amountTextField.text = ""

@@ -5,6 +5,10 @@
 //  Created by john on 11/12/25.
 //
 
+// LottoRank.swift
+
+import Foundation 
+
 enum LottoRank: CaseIterable {
     case first
     case second
@@ -24,14 +28,18 @@ enum LottoRank: CaseIterable {
         }
     }
 
-    static func of(match: Int, bonusMatched: Bool) -> LottoRank {
-        switch (match, bonusMatched) {
-        case (6, _):          return .first
-        case (5, true):       return .second
-        case (5, false):      return .third
-        case (4, _):          return .fourth
-        case (3, _):          return .fifth
-        default:              return .miss
+    static func from(matchCount: Int, bonusMatched: Bool) -> LottoRank {
+        switch matchCount {
+        case 6:
+            return .first
+        case 5:
+            return bonusMatched ? .second : .third
+        case 4:
+            return .fourth
+        case 3:
+            return .fifth
+        default:
+            return .miss
         }
     }
 }

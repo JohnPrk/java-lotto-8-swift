@@ -22,11 +22,20 @@ struct Lotto {
         try Lotto.validateDuplicate(numbers)
         self.numbers = numbers.sorted()
     }
-
+    
     func getNumbers() -> [Int] {
         return numbers
     }
+    
+    func containsNumber(_ number: Int) -> Bool {
+        return numbers.contains(number)
+    }
 
+    func countMatchingNumbers(with other: Lotto) -> Int {
+        let otherSet = Set(other.numbers)
+        return numbers.filter { otherSet.contains($0) }.count
+    }
+    
     private static func validateCount(_ numbers: [Int]) throws {
         if numbers.count != lottoSize {
             throw LottoError.invalidCount

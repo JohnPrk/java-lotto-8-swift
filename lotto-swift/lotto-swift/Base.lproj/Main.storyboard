@@ -118,6 +118,12 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bcs-Cs-jXo">
+                                        <rect key="frame" x="50" y="518.33333333333337" width="41.333333333333343" height="20.333333333333371"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="YKd-fw-6pd" firstAttribute="top" secondItem="XGr-Y0-F5m" secondAttribute="bottom" constant="19.666666666666657" id="2Np-kh-hkr" userLabel="Confirm Button.top = Purchase Amount Message Label.bottom + 20"/>
@@ -125,7 +131,10 @@
                                     <constraint firstItem="Hv1-UW-dl7" firstAttribute="top" secondItem="XGr-Y0-F5m" secondAttribute="bottom" constant="20" id="5IQ-6X-1nf"/>
                                     <constraint firstItem="fy7-Kn-oQD" firstAttribute="top" secondItem="Lp5-d2-U1X" secondAttribute="bottom" constant="40" id="8JK-6R-Hnc" userLabel="Bonus Number Message Label.top = Winning Numbers Output.bottom + 40"/>
                                     <constraint firstItem="P1w-o3-XMw" firstAttribute="leading" secondItem="gMZ-Ja-FTz" secondAttribute="leading" constant="50" id="A1n-wc-hj8"/>
+                                    <constraint firstItem="oEu-x7-6yw" firstAttribute="bottom" secondItem="bcs-Cs-jXo" secondAttribute="bottom" constant="16" id="DAl-Do-XuK"/>
+                                    <constraint firstItem="gIg-q8-zvO" firstAttribute="bottom" secondItem="bcs-Cs-jXo" secondAttribute="top" constant="-20" id="DRA-Eo-bhk"/>
                                     <constraint firstItem="bqZ-6g-tIV" firstAttribute="top" secondItem="Hv1-UW-dl7" secondAttribute="bottom" constant="50" id="GNN-to-pBX" userLabel="ResultLabel.top = Amount Text Field.bottom + 40"/>
+                                    <constraint firstItem="bcs-Cs-jXo" firstAttribute="leading" secondItem="gMZ-Ja-FTz" secondAttribute="leading" constant="50" id="K52-jM-KYR"/>
                                     <constraint firstItem="fy7-Kn-oQD" firstAttribute="leading" secondItem="gMZ-Ja-FTz" secondAttribute="leading" constant="50" id="MQE-Et-Q1X"/>
                                     <constraint firstItem="4jd-LR-aaZ" firstAttribute="top" secondItem="fy7-Kn-oQD" secondAttribute="bottom" constant="20" id="Nbb-rr-d5a" userLabel="Bonus Number Button.top = Bonus Number Message Label.bottom + 20"/>
                                     <constraint firstItem="HJ0-V1-Lb3" firstAttribute="leading" secondItem="gMZ-Ja-FTz" secondAttribute="leading" constant="50" id="NkK-Ut-2j3"/>
@@ -149,7 +158,6 @@
                                     <constraint firstItem="Lp5-d2-U1X" firstAttribute="top" secondItem="HJ0-V1-Lb3" secondAttribute="bottom" constant="10" id="rlw-qb-M6W" userLabel="Label.top = Winning Numbers Field.bottom + 10"/>
                                     <constraint firstItem="GGB-vj-jJL" firstAttribute="top" secondItem="fy7-Kn-oQD" secondAttribute="bottom" constant="20" id="s0Y-MG-RJc" userLabel="Round Style Text Field.top = Bonus Number Message Label.bottom + 20"/>
                                     <constraint firstItem="lGN-nW-p2M" firstAttribute="leading" secondItem="HJ0-V1-Lb3" secondAttribute="trailing" constant="10" id="sH2-qm-eRC"/>
-                                    <constraint firstItem="oEu-x7-6yw" firstAttribute="bottom" secondItem="gIg-q8-zvO" secondAttribute="bottom" constant="16" id="sUJ-uA-DA2"/>
                                 </constraints>
                                 <viewLayoutGuide key="contentLayoutGuide" id="oEu-x7-6yw"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="gMZ-Ja-FTz"/>
@@ -165,6 +173,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="ResultOutput" destination="bcs-Cs-jXo" id="JU5-Wn-GrD"/>
                         <outlet property="amountTextField" destination="Hv1-UW-dl7" id="t6D-i5-IiU"/>
                         <outlet property="bonusNumberButton" destination="4jd-LR-aaZ" id="ppG-Ah-sAc"/>
                         <outlet property="bonusNumberField" destination="GGB-vj-jJL" id="48x-sD-zrA"/>
