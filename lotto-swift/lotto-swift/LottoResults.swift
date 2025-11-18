@@ -28,7 +28,8 @@ struct LottoResults {
 
     func calculateYield(purchaseAmount: Int) -> Double {
         guard purchaseAmount > 0 else { return 0 }
-        return Double(totalPrize) / Double(purchaseAmount)
+        let ratio = Double(totalPrize) / Double(purchaseAmount)
+        return 100.0 * ratio
     }
 
     private static func toRank(lotto: Lotto, winningNumbers: WinningLotto) -> LottoRank {
