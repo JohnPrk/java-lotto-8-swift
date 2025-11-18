@@ -183,6 +183,7 @@
                         <outlet property="purchaseAmountButton" destination="YKd-fw-6pd" id="GZC-mk-6aj"/>
                         <outlet property="purchaseAmountMessageLabel" destination="XGr-Y0-F5m" id="LcY-Yz-Y9C"/>
                         <outlet property="resultLabel" destination="bqZ-6g-tIV" id="TTH-Ns-LKG"/>
+                        <outlet property="resultOutput" destination="bcs-Cs-jXo" id="Tot-pX-ReD"/>
                         <outlet property="scrollView" destination="iAR-cy-JN7" id="ZWM-Lo-OsJ"/>
                         <outlet property="titleLabel" destination="bVb-Ph-E2Q" id="j4K-Km-s0Q"/>
                         <outlet property="winningNumbersButton" destination="lGN-nW-p2M" id="h3U-gg-Xvv"/>
