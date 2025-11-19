@@ -202,7 +202,217 @@ private func showResults() {
 
 ## 6. MVVM 아키텍처 도입기
 
-(MVVM 아키텍처를 사용해서 코드를 더 깔끔하게 만드는 과정을 작성할 예정)
+### 6-1. 뷰모델은 뷰를 어떻게 업데이트하는가? 클로저와 메모리 안전 설계 🔗
+
+MVVM 패턴을 적용하면서 가장 의문이 들었던 코드는 바로 이 부분이다.
+
+```swift
+// [ViewController]
+
+viewModel.onUpdateResultLabel = { [weak self] text in
+	self?.resultLabel.text = text
+}
+```
+
+```swift
+// [ViewModel]
+
+var onUpdateResultLabel: ((String) -> Void)?
+
+func purchaseAmount(amountText: String?) {
+	do {
+		let parsed = try inputParser.parsePurchaseAmount(amountText)
+		// ... (중략) ...
+	  // 로직 처리가 끝나면 여기서 호출한다.
+	  onUpdateResultLabel?("\\(parsed.lottoCount)개를 구매했습니다.")
+
+		DispatchQueue.main.asyncAfter(deadline: .now() + self.stepDelay) {
+	    self.onUpdateLottoTickets?(ticketsText)
+      // ...
+	  }
+	}
+}
+```
+
+`ViewModel`은 `ViewController`를 전혀 모른 채 독립적으로 존재하고 있다. 
+
+> 하지만 ‘`ViewModel` 내부에서 발생한 이벤트와 데이터 처리 결과를, 도대체 어떻게 `ViewController`가 감지하고 낚아채서 가져올 수 있는가?’라는 생각이 들었다.
+> 
+
+이 부분을 찾아보니 `클로저(Closure)를 이용한 콜백 패턴`이라고 나와있었고, 아래의 순서로 위의 내용이 가능하다는 것을 보여줬다.
+
+1. **함정 설치 :** `ViewController`는 `힙 메모리`에 '화면을 바꾸는 로직(`클로저 객체`)'을 생성하고, `그 객체의 주소값`을 `ViewModel`의 `onUpdateResultLabel`(**함수-실행 코드의 주소**를 담고 있는 변수)에 건네준다. 즉, 뷰 모델에게 "작업이 끝나면 이 주소에 있는 코드를 실행해 주세요"라고 실행 권한을 위임하는 단계다.
+2. **발동 :** `ViewModel`의 `*purchaseAmount()*` 함수가 실행되면서 앞선 파싱 로직들이 완료되면, 실행 흐름은 자연스럽게 다음 줄인 `*onUpdateResultLabel*?("...")`에 도달한다. 이때 동기적(Synchronously)으로 변수에 저장된 주소지를 참조하여 함수를 호출한다. 즉, 잠시 뷰 컨트롤러가 심어둔 코드로 점프하여 실행하는 것이다. 이 과정에서 문자열을 `파라미터`로 넣어 `저장해 둔 주소지로 찾아가 함수를 실행한다.`
+3. **실행과 반영 :** 뷰 모델이 함수를 실행하는 순간, CPU의 실행 흐름은 힙 메모리에 저장된 클로저 코드로 점프한다. 이 코드는 `ViewController`가 작성해 둔 것이므로, 뷰모델이 넘겨준  문자열을 받아 `self.resultLabel.text`에 집어넣는다. 결과적으로 뷰모델은 뷰를 몰라도, 연결된 **함수 포인터**를 건드리는 것만으로 화면을 갱신하게 된다.
+
+여기서 중요한 건 클로저 함수의 `[weak self]`와 `guard let self = self else { return }` 표현이다. 
+
+Java의 `Garbage Collector`는 순환 참조가 생겨도 “아 이건 서로만 잡고 있구나” 하면서 알아서 끊어주지만, Swift는 전혀 그렇지 않다. Swift는 `ARC`(Automatic Reference Counting)라는 훨씬 단순하고 냉정한 규칙으로 메모리를 관리한다. 즉, "Swift의 객체는 자신을 향하는 강한 참조(Strong Reference)의 개수가 0이 될 때까지, 메모리 해제 대상에서 영구적으로 제외된다.”
+
+문제는 ViewController가 ViewModel을 강하게 잡고, ViewModel이 콜백 클로저를 강하게 잡고, 그 클로저가 다시 `self`(ViewController)를 강하게 캡처하는 구조가 생길 때다. 이렇게 되면 VC → VM → 클로저 → VC로 이어지는 원이 만들어지고, ARC 입장에서는 누구의 참조 카운트도 0이 안 되기 때문에 “아직 필요하네?” 하고 끝까지 메모리를 못 정리한다. 이게 순환 참조고, 결국 메모리 누수로 이어진다. 
+
+```swift
+ViewController ─▶ ViewModel ─▶ 클로저 ─▶ ViewController
+      ▲__________________________________________▼
+```
+
+이에 `[weak self]`는 이 마지막 고리를 weak으로 바꿔서, ViewController가 진짜로 필요 없어진 순간에 깨끗하게 내려갈 수 있게 만들어주는 장치다.
+
+그럼 여기서 한 번 더 궁금해졌다. 
+
+> **“ViewController가 진짜로 `필요 없어진 순간`이 정확히 언제일까?”**
+> 
+
+현재 나의 앱처럼 단일 뷰 구조에서는 이 질문이 더 애매하게 느껴졌다. 왜냐하면 나는 아직 네비게이션으로 화면을 왔다 갔다 하거나, 모달을 띄웠다가 닫는 흐름을 쓰고 있지 않기 때문이다.
+
+보통 iOS에서 `ViewController`가 “`필요 없어진 순간`”이라고 하면 이런 타이밍을 말한다.
+
+- 네비게이션 스택에서 `pop`될 때
+- 모달로 띄운 화면이 `dismiss`될 때
+
+이 시점에 `ViewController`를 향하는 마지막 `strong` 참조가 끊어지면, **ARC**가 “이제 진짜 아무도 안 쓰네”라고 판단하고 `deinit`을 호출한 다음 메모리를 정리한다.
+
+반면에 백그라운드로 들어가는 건 전혀 그 순간이 아니다. 홈 버튼 누르거나 앱 스위처로 다른 앱 가도, 프로세스는 여전히 살아 있고 iOS는 그냥 앱을 suspend 시켜서 CPU만 멈춰있을 뿐이다. 힙에 올라간 객체들은 그대로 남아 있다. 
+
+진짜 메모리가 정리되는 건 시스템이 메모리 부족해서 프로세스를 강제 종료하거나, 사용자가 앱을 완전히 kill할 때뿐이다. 그때는 Root ViewController든 뭐든 통째로 날아간다.
+
+이걸 내 현재 구조에 대입해 보면 결론이 하나 나온다. 지금 내 단일 뷰 앱에서는, 앱 시작할 때 Root ViewController + ViewModel + 클로저 세트가 한 번 만들어지고 앱이 완전히 꺼질 때까지 셋이 같이 메모리에 남아 있는 구조다. 순환 참조가 있어서 “해제 타이밍을 놓친 ViewController가 계속 쌓여간다”라는 이러한 누수는 아직 없다.
+
+이 말만 놓고 보면, “그럼 지금은 굳이 `weak` 안 써도 되는 거 아냐?”라는 생각이 살짝 들 수도 있지만, 언제든 화면이나 모달이 확장될 수 있기에 방어적으로 설계하고 코드를 작성하는 것이 맞다고 생각했다.
+
+<br>
+<br>
+
+### 6-2. "트래픽이 오지 않는다": 서버와 클라이언트의 결정적 차이 🤯
+
+iOS 개발을 시작하면서 가장 낯설었던 점은 "내 코드는 언제, 어떤 계기로 실행되는가?"라는 것이었습니다. 요청의 진입점과 처리 흐름이 직관적으로 그려지지 않았기에 “요청이 어디에서 들어와서 어떻게 처리가 되는 건지” 감이 잘 오지 않았다.
+
+나는 서버 개발자로서 클라이언트가 HTTP 요청을 보내면 → Tomcat이 스레드 하나를 할당하고 → 컨트롤러를 찾아 코드가 실행되는 것에 익숙했다.
+
+그런데 iOS 앱을 만들어보니 이렇게 처리되지 않는 것 같다고 느꼈다. 나의 Swift 코드는 더 이상 “중앙 서버에서 클라이언트의 네트워크 요청을 기다리는” 존재가 아니었다. 대신 **각 사용자의 아이폰·아이패드라는 개별 디바이스** 안에서 독립적으로 실행된다.
+
+따라서, 유저가 1명일 때나 100만 명일 때나 내 ViewController, ViewModel, 클로저, GCD 큐, 심지어 retain cycle로 인한 메모리 누수까지 모든 일이 **사용자 손에 들린 그 한 대의 기기, 그 RAM과 CPU 위에서만** 일어난다.
+
+> 이후 자연스럽게 떠오른 질문은 “그럼 도대체 어떤 것(이벤트)이 내 코드를 깨우는 거지?”였다.
+> 
+
+서버의 코드가 네트워크를 통해 들어오는 '패킷(Request)'에 의해 실행된다면, 앱의 코드를 실행시키는 건 **사용자의 손가락과 하드웨어에서** 발생하는 '`로컬 이벤트`'다.
+
+이 과정을 추상화해보면 다음과 같은 논리적 단계를 거치면서 처리가 된다.
+
+- **하드웨어 감지:** 사용자가 화면을 터치하거나 기기를 흔들면, 하드웨어 센서가 물리적 신호를 포착한다.
+- **OS의 전달:** 이 신호는 **OS 커널**에 의해 가장 먼저 감지됩니다. 커널은 이 하드웨어적 신호를 '이벤트'라는 소프트웨어적 객체로 변환하여, 현재 실행 중인 앱(Application)으로 전달한다.
+- **Main RunLoop의 수신:** 앱에는 `Main RunLoop`라는 무한 루프가 돌고 있습니다. OS가 전달한 이벤트는 바로 이 루프의 입력 소스로 들어오게 된다.
+
+여기서 서버와 가장 큰 차이가 있다. 서버는 요청마다 새로운 스레드를 할당하지만, iOS는 **`Main Thread`**라는 단 하나의 스레드가 `RunLoop`를 돌며 모든 UI 이벤트를 순차적으로 처리한다.
+
+1. **대기 (Wait):** RunLoop는 처리할 이벤트가 없으면 대기 상태로 머문다.
+2. **실행 (Execute):** 터치 이벤트가 들어오면 RunLoop가 깨어나고, 해당 이벤트와 연결된 코드(Target-Action, Delegate, Closure 등)를 Main Thread 위에서 실행한다.
+3. **반복 (Loop):** 코드 실행이 끝나면 다시 다음 이벤트를 기다리는 상태로 돌아간다.
+
+이 구조 때문에 "`Main Thread를 차단하지 말라`"는 iOS 개발의 대원칙이 생겨난다. 모든 UI 렌더링과 이벤트 처리가 Main Thread에서만 이루어지기 때문이다.
+
+만약 버튼을 눌렀을 때 `무거운 연산`을 Main Thread에서 직접 수행하면, RunLoop가 다음 바퀴를 돌지 못해 화면이 멈추는 현상(Freezing)이 발생한다. 따라서 이를 **`GCD(Grand Central Dispatch)`**를 이용해 백그라운드 스레드로 분리해야한다.
+
+결국 서버 개발자의 고민은 `트래픽 처리량(Throughput)`이었지만, iOS 개발자의 고민은 `사용자 경험(UX)과 UI 반응성(Responsiveness)`으로 완전히 바뀌어 버린다. 
+
+<br>
+<br>
+
+### 6-3. 앱의 작동 원리: Xcode의 ▶︎ 버튼을 누르면 벌어지는 일 🚀
+
+xcode에서 swift 코드를 조금 쓰다가 이런 궁금증이 생긴 적이 있었다. 
+
+> **“Xcode에서 ▶︎(Start the active scheme)를 누른 그 다음에는, 도대체 어떤 순서로 무슨 코드들이 호출되길래 결국 `*viewDidLoad()*`와 `*bindViewModel()*`까지 도달하는 걸까?”**
+> 
+
+프로젝트를 처음 만들었을 때, 기본으로 생성되어 있었던 **`AppDelegate`, `SceneDelegate`, `ViewController`, `Main.storyboard`** 같은 알 수 없는 파일들이 도대체 어떤 역할을 하고, **어떻게 시뮬레이터를 작동시키는지** 이해하기 어려웠다
+
+자바 개발자라면 런타임에 JVM이 올라가고 Application의 *main static 메서드*에서 코드가 시작된 다음,
+
+```java
+public class MainApplication {
+
+	public static void main(String[] args) {
+		// ...
+	}
+}
+```
+
+스프링이라면 ApplicationContext(스프링 컨테이너)를 생성하며 시작되는 흐름이 자연스럽게 떠오른다. 반면 iOS에서는 이 `시작 지점`이 코드에 드러나 있지 않아서, 처음에는 정말 완전히 깜깜한 느낌이었다.
+
+하지만 iOS에서도 코드가 실행되는 명확한 시작점은 존재했다. 보이지 않던 **그 시작점**을 추적하며, 우리의 Swift 코드가 최종적으로 어떻게 호출되고 **Main Thread의 제어권**을 얻는지 파헤쳐 봤다.
+
+Xcode에서 '▶︎' 버튼을 누르는 순간, iOS 시스템은 컴파일된 앱 바이너리를 실행한다. 이는 **서버의 컨테이너를 부팅하는 과정**과 유사하다. 모든 C 계열 프로그램처럼 iOS 앱의 시작점은 **`main()` 함수**다. 하지만 Swift에서는 이 `main()` 함수가 보통 숨겨져 있다. 이 함수 내부에서 `UIApplicationMain`이라는 C 함수를 호출하여 앱의 실행 환경을 초기화하고, Main Thread가 앱의 모든 UI와 생명주기를 담당하는 **Event Loop**를 돌리기 시작한다.
+
+Main Thread가 생성된 후, 제어권은 앱의 두 관리자에게 전달된다.
+
+- **`AppDelegate` (프로세스 관리):** 앱 프로세스가 켜지고(Launch), 꺼지고(Terminate), 푸시 알림을 받는 **앱 전체의 수명 주기**를 담당한다. 서버의 `main()` 메서드나 글로벌 설정을 담당하는 Configuration과 유사하다.
+- **`SceneDelegate` (UI 윈도우 관리):** iOS 13 이후 도입되었으며, 하나의 화면(Window/Scene)이 언제 **앞으로(포그라운드) 튀어나와서 유저와 상호작용을 시작하는지**, 언제 **뒤로(백그라운드) 물러나서 화면에서 사라지는지** 같은 UI 단위의 수명 주기를 관리한다. 예를 들어 사용자가 홈 화면으로 나가거나 다른 앱으로 전환할 때, SceneDelegate는 해당 화면이 **백그라운드로 내려가는 순간**에 맞춰 상태 저장, 정리 작업 등을 할 수 있는 훅을 제공한다.
+
+Main Thread는 이제 `SceneDelegate`의 지시에 따라 사용자에게 보여줄 첫 화면을 그리기 시작한다. 먼저 `SceneDelegate`는 앱의 **Root View Controller**를 결정한다. 이때 **`Main.storyboard`** 파일이 사용된다.
+
+- **Storyboard 역할:** `Main.storyboard`는 단순한 `XML 설계도`이다.
+- **Main Thread의 역할:** Main Thread는 이 XML을 읽어 `UILabel`, `UIButton`, `ViewController` 같은 객체들을 `Heap 메모리에 생성(Instantiation)`하고 초기값을 설정한다. 이 순간 정적인 설계도가 동적인 객체로 전환된다.
+
+내가 만든 `LottoViewController`는 애플이 제공하는 `UIViewController`를 상속받는다. 이 상속 구조가 프레임워크가 정한 생명주기 안에 내 코드를 안전하게 끼워 넣을 수 있게 해준다.
+
+- **`*override func viewDidLoad()*`:** 시스템이 `ViewController`의 모든 UI 객체(View)를 메모리에 성공적으로 로드하고 연결한 직후, **딱 한 번** 이 메서드를 호출한다. 이것이 바로 "`UI 설정 준비 완료`"를 알리는 `후크(Hook)`다. Java/Spring의 `@PostConstruct` 시점과 유사하다.
+
+우리가 `*viewDidLoad()*` 내부에 `*bindViewModel()*` 같은 코드를 넣는 이유는 바로 이 시점이 `ViewController`**의 초기 설정과** `ViewModel`**의 연결을 시작하기에 가장 안전하고 적절한 지점**이기 때문이다.
+
+- **연결:** `bindViewModel()`이 실행되는 순간, 우리가 작성한 클로저가 힙 메모리에 할당되고 `ViewModel`의 콜백 변수와 연결된다.
+- **대기:** 이 시점 이후, `Main Thread`는 `Event Loop`를 돌며 사용자 터치라는 '로컬 이벤트'가 발생하기를 기다리는 대기 상태로 진입한다.
+
+<br>
+<br>
+
+### 6-4. MVVM의 적용: 역할에 맞게 분리 ⚔️
+
+로또 미션을 진행하면서 내가 마주친 구조적 문제는 바로 **책임의 비대화**였다.
+
+처음에는 모든 비즈니스 로직과 UI 조작을 `ViewController` 하나에 몰아넣고도 코드가 돌아갔다. 텍스트 필드 문자열 파싱, 로또 번호 계산, `UILabel.text` 업데이트까지 전부 `ViewController`의 몫이었다. 이는 곧 **Massive ViewController**라는 결과로 이어졌다.
+
+MVVM 구조를 도입하면서 이 문제를 해결하려 했고, 나는 "화면과 관련 없는 모든 것"을 `ViewModel`로 분리했다. 금액 검증, 로또 번호 생성, 심지어 결과 출력용 문자열을 조립하는 작업까지 모두 `ViewModel` 내부에서 처리했다. 
+
+하지만 ViewModel 클래스가 방대해지면서 문제가 발생했다. ViewModel은 이제 화면의 상태 관리, 입력 처리, 도메인 로직 수행, 출력 문자열 포맷팅까지 모든 것을 담당하는 새로운 병목 지점(Bottleneck)이 되어버린 것이다.
+
+즉, "`Massive ViewController`를 해체했더니, 그 모든 책임이 `ViewModel`로 고스란히 옮겨간 것에 불과하다"는 깨달음으로 이어졌다. `ViewModel`은 순수한 데이터와 로직 조정만을 담당해야 하는데, **입력 파싱, 계산, 그리고 최종적인 포맷팅**까지 관여하면서 새로운 **Massve ViewModel**로 비대해져 버린 것이다. 
+
+여기서 **`ViewModel`의 역할과 책임**에 대해 근본적인 고민이 생겼다.
+
+> `ViewModel`이 순수한 데이터를 조정하는 역할이라면, **입력 파싱이나 복잡한 출력 포맷팅 같은 작업들은 유틸 성격으로 분리하는 작업**이 필요하지 않을까?
+> 
+
+이러한 의문 끝에, 나는 단일 책임 원칙(SRP)을 기반으로 `ViewModel`의 역할을 "조정(Orchestration)"으로 한정하고, 입출력과 포맷팅 작업을 유틸리티 계층으로 분리하는게 좋을 것 같다고 판단했다.
+
+그리고 아래와 같이 역할에 맞게 코드를 분리했다.
+
+1. LottoViewModel (조정자/Presentation Layer)
+
+`ViewModel`은 **데이터를 직접 가공하는 대신** 필요한 외부 컴포넌트를 호출하고 흐름을 제어하는 최종 책임자가 되었다.
+
+- **역할:** **상태 관리 및 흐름 제어.** 사용자 입력(메서드)을 받고 내부 상태(`lottos`, `purchaseAmount`)를 변경하며, 외부 `Parser`와 `Formatter`를 호출하여 결과를 얻는다. 이 결과를 `Closure` I/O를 통해 `ViewController`에게 전달하는 최종적인 책임(`onUpdateResultLabel`, `onShowResults`)을 진다.
+- **특징:** 복잡한 비즈니스 플로우(구매 → 생성 → 당첨 번호 입력 → 결과 출력)와 **비동기 타이밍**(`DispatchQueue.main.asyncAfter`)을 관리한다.
+- **Java 비유:** `@Controller`나 `@Service`에서 다른 `Repository`나 `Utility`를 주입받아 **업무 흐름**을 정의하는 역할.
+
+1. LottoInputParser (경계 처리/Input Service)
+
+`InputParser`는 시스템의 **입력 경계선**을 담당하는 Service 계층의 역할을 수행한다.
+
+- **역할:** **Input String을 Domain Object로 변환.** 사용자에게 받은 원시적인 문자열(`numbersText`)을 도메인이 요구하는 엄격한 규칙을 갖춘 객체(`Lotto`, `Money`)로 안전하게 변환하는 경계층의 책임.
+- **특징:** 모든 유효성 검사(`InputValidator`)를 수행하며, 유효하지 않은 입력에 대해서는 `try/catch`를 통해 명확한 **도메인 오류**를 던진다. `ViewModel`은 이미 검증된 객체만 받게 되어 로직 수행이 단순화된다.
+- **Java 비유:** Input DTO를 Domain Entity로 변환하는 Service Layer의 역할.
+
+1. LottoResultFormatter (출력 변환/Presentation Utility)
+
+`ResultFormatter`는 **출력 전용 유틸리티**로, 화면에 보여주기 직전의 마지막 가공을 담당한다.
+
+- **역할:** **Domain Object를 Display String으로 변환.** 순수한 비즈니스 로직(당첨 등수)이 끝난 후, 그 결과를 최종적으로 사용자 인터페이스에 맞는 형태로 가공한다.
+- **특징:** `LottoResults` 객체를 받아 **수익률 포맷팅**(`String(format: "%.1f")`), **줄 바꿈 및 콤마 처리**(`joined(separator: "\n")`), **통계 테이블 형식**(`finalResultText`) 등 출력에 관련된 모든 것을 담당한다.
+- **Java 비유:** DTO를 View에 맞게 최종 포맷팅하는 `Presenter`나 `Mapper`의 역할.
+
+이러한 세분화 덕분에 `ViewModel`은 **순수한 조정자** 역할에만 집중할 수 있게 되었다.
 
 <br>
 <br>
