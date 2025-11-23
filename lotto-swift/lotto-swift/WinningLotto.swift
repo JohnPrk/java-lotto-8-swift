@@ -13,13 +13,13 @@ struct WinningLotto {
     init(lotto: Lotto, bonusNumber: BonusNumber) throws {
             self.lotto = lotto
             self.bonus = bonusNumber
-        }
+    }
+    
+    func countMatchingNumbers(_ lotto: Lotto) -> Int {
+        return self.lotto.countMatchingNumbers(with: lotto)
+    }
 
-        func countMatchingNumbers(_ lotto: Lotto) -> Int {
-            return self.lotto.countMatchingNumbers(with: lotto)
-        }
-
-        func containsBonusNumber(_ lotto: Lotto) -> Bool {
-            return lotto.containsNumber(bonus.value)
-        }
+    func containsBonusNumber(_ lotto: Lotto) -> Bool {
+        return lotto.containsNumber(bonus.value)
+    }
 }

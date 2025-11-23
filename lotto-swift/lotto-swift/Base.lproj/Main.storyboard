@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="A7G-2t-FYQ">
     <device id="retina6_3" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Manual Input View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="lotto_swift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ManualInputViewController" customModule="lotto_swift" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iAR-cy-JN7">
-                                <rect key="frame" x="0.0" y="124" width="402" height="682"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iAR-cy-JN7">
+                                <rect key="frame" x="0.0" y="0.0" width="402" height="812"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="구입 금액을 입력해주세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XGr-Y0-F5m">
                                         <rect key="frame" x="50" y="50" width="189" height="21"/>
@@ -90,13 +91,13 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="보너스 번호를 입력해 주세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fy7-Kn-oQD" userLabel="Bonus Number Message Label">
-                                        <rect key="frame" x="50" y="392.33333333333337" width="195" height="21"/>
+                                        <rect key="frame" x="50" y="392.33333333333331" width="195" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GGB-vj-jJL" userLabel="Bonus Number Field">
-                                        <rect key="frame" x="50" y="433.33333333333337" width="97" height="34"/>
+                                        <rect key="frame" x="50" y="433.33333333333331" width="97" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="34" id="0zB-xn-pPC"/>
                                             <constraint firstAttribute="width" constant="97" id="7Sz-lN-gFY"/>
@@ -105,7 +106,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4jd-LR-aaZ" userLabel="Bonus Number Button">
-                                        <rect key="frame" x="157" y="433.33333333333337" width="54" height="35"/>
+                                        <rect key="frame" x="157" y="433.33333333333331" width="54" height="35"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="filled" title="입력"/>
                                         <connections>
@@ -172,6 +173,7 @@
                             <constraint firstItem="iAR-cy-JN7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="oYx-C3-jBO" userLabel="Scroll View.top = Safe Area.top"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="HBq-lO-WdZ"/>
                     <connections>
                         <outlet property="ResultOutput" destination="bcs-Cs-jXo" id="JU5-Wn-GrD"/>
                         <outlet property="amountTextField" destination="Hv1-UW-dl7" id="t6D-i5-IiU"/>
@@ -194,12 +196,227 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="137.31343283582089" y="130.43478260869566"/>
+            <point key="canvasLocation" x="4110" y="130"/>
+        </scene>
+        <!--Main View Controller-->
+        <scene sceneID="yZy-Yp-L73">
+            <objects>
+                <viewController storyboardIdentifier="ManualInputScene" id="A7G-2t-FYQ" customClass="MainViewController" customModule="lotto_swift" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fm6-Rd-gTk">
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="874"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.40000000000000002" contentMode="scaleAspectFit" fixedFrame="YES" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="RQa-hf-Twg">
+                                <rect key="frame" x="-99" y="-8" width="582" height="891"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GkR-6s-tVN">
+                                <rect key="frame" x="48" y="510" width="306" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" name="AccentColor"/>
+                                <color key="tintColor" systemColor="systemGreenColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="실제 회차 조회 (1~1198회)"/>
+                                <connections>
+                                    <segue destination="AvY-Zy-EX8" kind="show" id="DKW-Fc-5jW"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZYI-pS-T3i">
+                                <rect key="frame" x="48" y="411" width="306" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" systemColor="tableCellBlueTextColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="수동으로 당첨번호 입력"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="VND-M7-yuS"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" sizingRule="oversize" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hh2-5d-ITy">
+                                <rect key="frame" x="36" y="93" width="331" height="93"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="Lotto Swift">
+                                        <attributes>
+                                            <font key="NSFont" size="48" name="Papyrus"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                                <color key="shadowColor" systemColor="placeholderTextColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="진행 방식을 선택해 주세요" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pfV-7I-dxi">
+                                <rect key="frame" x="114" y="159" width="175" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" systemColor="systemGrayColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="L0y-Pj-UUE"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="OTY-r7-tAb"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="beF-o0-Liv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2625.373134328358" y="129.7482837528604"/>
+        </scene>
+        <!--Official Round View Controller-->
+        <scene sceneID="IOo-5z-OgA">
+            <objects>
+                <viewController id="AvY-Zy-EX8" customClass="OfficialRoundViewController" customModule="lotto_swift" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QSP-Fq-zki">
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mJF-xe-Lmv">
+                                <rect key="frame" x="-2" y="0.0" width="404" height="812"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="로또 게임 - 실제 회차 조회 (1~1198회)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BCx-z3-fzr">
+                                        <rect key="frame" x="71" y="0.0" width="262" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[1, 2, 3, 4, 5, 6]" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qgx-ca-zvR" userLabel="Lotto Label">
+                                        <rect key="frame" x="49.999999999999993" y="207" width="113.33333333333331" height="20.333333333333343"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gcj-ij-XNO" userLabel="Winning Numbers Button">
+                                        <rect key="frame" x="157" y="288.33333333333331" width="54" height="35"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="입력"/>
+                                        <connections>
+                                            <action selector="didTapFetchRound:" destination="AvY-Zy-EX8" eventType="touchUpInside" id="dQ9-F6-q4p"/>
+                                            <action selector="didTapWinningNumbersButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Gqp-bm-ZwL"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9fK-nC-xIs">
+                                        <rect key="frame" x="50" y="288.33333333333331" width="97" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="34" id="Ttm-8F-GEV"/>
+                                            <constraint firstAttribute="width" constant="97" id="VcJ-4l-LHO"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="회차를 입력해주세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Dx-r9-jgH" userLabel="WinningNumbersMessageLabel">
+                                        <rect key="frame" x="50" y="247.33333333333337" width="142" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TQL-Bb-NON" userLabel="Purchase Amount Button">
+                                        <rect key="frame" x="157" y="91.666666666666671" width="54" height="34"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="입력"/>
+                                        <connections>
+                                            <action selector="didTapConfirmButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="k8k-lp-iiK"/>
+                                            <action selector="didTapPurchase:" destination="AvY-Zy-EX8" eventType="touchUpInside" id="swx-Uo-A1e"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="{#s}개를 구매했습니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z0s-Lq-TA9" userLabel="Result Label">
+                                        <rect key="frame" x="50" y="176" width="158" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="구입 금액을 입력해주세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dHP-iA-EKn">
+                                        <rect key="frame" x="50.000000000000014" y="51" width="175.33333333333337" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hp0-mw-16d">
+                                        <rect key="frame" x="50" y="92" width="97" height="34"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="97" id="mMS-3f-Ggr"/>
+                                            <constraint firstAttribute="height" constant="34" id="rIa-7i-tc6"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="결론" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yvE-Iz-S41" userLabel="Winning Numbers Output">
+                                        <rect key="frame" x="49.999999999999993" y="342.33333333333331" width="29.666666666666664" height="20.333333333333314"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="BCx-z3-fzr" firstAttribute="top" secondItem="RcX-7I-2gb" secondAttribute="top" id="0C0-qF-GDK"/>
+                                    <constraint firstItem="Z0s-Lq-TA9" firstAttribute="leading" secondItem="bgW-Qg-VOy" secondAttribute="leading" constant="50" id="6N2-jm-wUX"/>
+                                    <constraint firstItem="9fK-nC-xIs" firstAttribute="top" secondItem="0Dx-r9-jgH" secondAttribute="bottom" constant="20" id="792-E8-6lL"/>
+                                    <constraint firstItem="9fK-nC-xIs" firstAttribute="leading" secondItem="bgW-Qg-VOy" secondAttribute="leading" constant="50" id="8wM-0b-rgv"/>
+                                    <constraint firstItem="Qgx-ca-zvR" firstAttribute="leading" secondItem="bgW-Qg-VOy" secondAttribute="leading" constant="50" id="9re-PH-oMZ"/>
+                                    <constraint firstItem="RcX-7I-2gb" firstAttribute="bottom" secondItem="yvE-Iz-S41" secondAttribute="bottom" constant="20" id="CGE-4Y-30Z"/>
+                                    <constraint firstItem="0Dx-r9-jgH" firstAttribute="top" secondItem="Qgx-ca-zvR" secondAttribute="bottom" constant="19.999999999999972" id="Ccv-QO-K66"/>
+                                    <constraint firstItem="Z0s-Lq-TA9" firstAttribute="top" secondItem="hp0-mw-16d" secondAttribute="bottom" constant="50" id="EuD-C7-a0s"/>
+                                    <constraint firstItem="yvE-Iz-S41" firstAttribute="top" secondItem="9fK-nC-xIs" secondAttribute="bottom" constant="20" id="GX3-JT-n5E"/>
+                                    <constraint firstItem="hp0-mw-16d" firstAttribute="top" secondItem="dHP-iA-EKn" secondAttribute="bottom" constant="20" id="Kkf-zx-ZOf"/>
+                                    <constraint firstItem="Gcj-ij-XNO" firstAttribute="top" secondItem="0Dx-r9-jgH" secondAttribute="bottom" constant="20" id="LEP-2z-2YH"/>
+                                    <constraint firstItem="0Dx-r9-jgH" firstAttribute="leading" secondItem="bgW-Qg-VOy" secondAttribute="leading" constant="50" id="RW3-yZ-eqh"/>
+                                    <constraint firstItem="dHP-iA-EKn" firstAttribute="leading" secondItem="bgW-Qg-VOy" secondAttribute="leading" constant="50" id="bhB-cV-JDU"/>
+                                    <constraint firstItem="dHP-iA-EKn" firstAttribute="top" secondItem="BCx-z3-fzr" secondAttribute="bottom" constant="30" id="flT-o1-rbL"/>
+                                    <constraint firstItem="BCx-z3-fzr" firstAttribute="leading" secondItem="bgW-Qg-VOy" secondAttribute="leading" constant="71" id="hkp-ht-fHf"/>
+                                    <constraint firstItem="hp0-mw-16d" firstAttribute="leading" secondItem="bgW-Qg-VOy" secondAttribute="leading" constant="50" id="jAg-Tl-Gt6"/>
+                                    <constraint firstItem="TQL-Bb-NON" firstAttribute="leading" secondItem="hp0-mw-16d" secondAttribute="trailing" constant="10" id="kVN-Lt-f3S" userLabel="Purchase Amount Button.leading = Amount Text Field.trailing + 10"/>
+                                    <constraint firstItem="TQL-Bb-NON" firstAttribute="top" secondItem="dHP-iA-EKn" secondAttribute="bottom" constant="19.670000000000002" id="mPS-JG-G91"/>
+                                    <constraint firstItem="Qgx-ca-zvR" firstAttribute="top" secondItem="Z0s-Lq-TA9" secondAttribute="bottom" constant="10" id="mnC-Tk-IHm"/>
+                                    <constraint firstItem="yvE-Iz-S41" firstAttribute="leading" secondItem="bgW-Qg-VOy" secondAttribute="leading" constant="50" id="pg7-kZ-Zj6"/>
+                                    <constraint firstItem="Gcj-ij-XNO" firstAttribute="leading" secondItem="9fK-nC-xIs" secondAttribute="trailing" constant="10" id="rgx-tb-4P1"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="RcX-7I-2gb"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="bgW-Qg-VOy"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="TU7-RR-cn8"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Z4e-Pn-Uet"/>
+                    <connections>
+                        <outlet property="amountTextField" destination="hp0-mw-16d" id="zwR-jc-kaH"/>
+                        <outlet property="lottoLabel" destination="Qgx-ca-zvR" id="1Jg-5b-yiP"/>
+                        <outlet property="purchaseAmountButton" destination="TQL-Bb-NON" id="QGK-4v-L46"/>
+                        <outlet property="purchaseAmountMessageLabel" destination="dHP-iA-EKn" id="z46-U3-SIZ"/>
+                        <outlet property="resultLabel" destination="Z0s-Lq-TA9" id="sdT-pa-mSg"/>
+                        <outlet property="resultOutput" destination="yvE-Iz-S41" id="x33-TM-ag3"/>
+                        <outlet property="roundButton" destination="Gcj-ij-XNO" id="vZu-sM-keu"/>
+                        <outlet property="roundLabel" destination="0Dx-r9-jgH" id="UGc-vo-UnB"/>
+                        <outlet property="roundTextField" destination="9fK-nC-xIs" id="A8H-cH-NeO"/>
+                        <outlet property="scrollView" destination="mJF-xe-Lmv" id="TSE-9p-Rjx"/>
+                        <outlet property="titleLabel" destination="BCx-z3-fzr" id="deM-6c-fYM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ffy-9l-Z4A" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3505.9701492537311" y="129.7482837528604"/>
         </scene>
     </scenes>
     <resources>
+        <image name="Image" width="512" height="768"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="placeholderTextColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29803921568627451" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGreenColor">
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="tableCellBlueTextColor">
+            <color red="0.0" green="0.53333333333333333" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -12,7 +12,7 @@ import Foundation
 struct LottoResults {
 
     private(set) var results: [LottoRank: Int] = [:]
-    private(set) var totalPrize: Int = 0
+    private(set) var totalPrize: Int64 = 0
 
     init(lottos: [Lotto], winningNumbers: WinningLotto) {
         for lotto in lottos {

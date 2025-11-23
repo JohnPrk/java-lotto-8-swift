@@ -2,7 +2,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ManualInputViewController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -60,7 +60,7 @@ class ViewController: UIViewController {
         
         private func bindViewModel() {
             viewModel.onUpdateResultLabel = { [weak self] text in
-                self?.resultLabel.text = text
+            self?.resultLabel.text = text
         }
 
         viewModel.onUpdateLottoTickets = { [weak self] text in

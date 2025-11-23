@@ -17,7 +17,7 @@ enum LottoRank: CaseIterable {
     case fifth
     case miss
 
-    var prize: Int {
+    var prize: Int64 {
         switch self {
         case .first:  return 2_000_000_000
         case .second: return 30_000_000
